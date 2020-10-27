@@ -1,0 +1,43 @@
+*, *::before, *::after {box-sizing: border-box;margin: 0;padding: 0}
+
+:root{
+
+    //common for all
+
+
+    //small 
+    @media #{$mq-sm}{
+        --font-size: #{$mq-sm-font-size};
+        --cube-container-width: 10rem;
+    }
+
+    //medium
+    @media #{$mq-md}{
+        --font-size: #{$mq-md-font-size};
+        --cube-container-width: 15rem;
+    }
+
+    //large
+    @media #{$mq-lg}{
+        --font-size: #{$mq-lg-font-size};
+        --cube-container-width: 20rem;
+    }
+}
+
+html{
+    font-size: var(--font-size);
+}
+
+header{
+    font-size:2rem; text-align: center; margin: 1.5rem 0;
+}
+
+
+*,*::before,*::after{ padding:0; margin:0; box-sizing: border-box;}
+
+body{ background-color: #2b3a42}
+
+
+
+  
+  

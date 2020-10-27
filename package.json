@@ -1,0 +1,21 @@
+{
+  "name": "vanila",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel start index.html",
+    "prebuild": "rimraf ./dist",
+    "build": "parcel build index.html --public-url ./ --no-source-maps"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.6.0",
+    "jest": "^26.2.2",
+    "parcel-bundler": "^1.12.4",
+    "rimraf": "^3.0.2",
+    "sass": "^1.26.10"
+  }
+}

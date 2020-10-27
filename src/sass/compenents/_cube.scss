@@ -1,0 +1,84 @@
+.cube-wrapper{
+    width: var(--cube-container-width);
+    height: var(--cube-container-width);
+    // perspective: 2000px;
+    // -webkit-perspective: 2000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+    
+    
+      .cube{
+
+        // position:relative;
+        display:inline-block;
+        transition: transform 1s;
+        transform-style:preserve-3d;
+        transform: rotateX(-33.5deg) rotateY(45deg);
+
+        .cube__face{
+            position: absolute;
+            width:100%;
+            height:100%;
+        }
+
+        &.outer{
+            position: relative;
+            width:calc(var(--cube-container-width)/2);
+            height:calc(var(--cube-container-width)/2);
+
+            .cube__face{
+                width:calc(var(--cube-container-width)/2);
+                height:calc(var(--cube-container-width)/2);
+                background: rgba(141,214,249,.5);
+                border:1px solid white;
+                transition: border-width .2s;
+                transition-delay: 0.2s;
+            
+            }
+        }
+        
+        &.inner{
+            position: absolute;
+            width:calc(var(--cube-container-width)/4);
+            height:calc(var(--cube-container-width)/4);
+            
+            margin-top: -2px;
+            div{
+                width:calc(var(--cube-container-width)/4);
+                height:calc(var(--cube-container-width)/4);
+                background:#175d96;
+                border:2px solid white;
+          
+
+                // &:nth-child(1){
+                //     transform:translateZ(calc(var(--cube-container-width)/8));
+                // }
+                  
+                // &:nth-child(2){
+                //     transform: rotateX(180deg) translateZ(calc(var(--cube-container-width)/8));
+                // }
+                  
+                // &:nth-child(3){
+                //     transform: rotateY(-90deg) translateZ(calc(var(--cube-container-width)/8));
+                // }
+                  
+                // &:nth-child(4){
+                //     transform:rotateY(90deg) translateZ(calc(var(--cube-container-width)/8));
+                // }
+                  
+                // &:nth-child(5){
+                //     transform: rotateX(90deg) translateZ(calc(var(--cube-container-width)/8));
+                // }
+                
+                // &:nth-child(6){
+                //     transform:rotateX(-90deg) translateZ(calc(var(--cube-container-width)/8));
+                // }
+            }
+        }
+      }
+
+
+  }
