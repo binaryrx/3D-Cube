@@ -1,160 +1,13 @@
-
-
-function createElement (element,classes){
-    const el = document.createElement(element)
-        el.classList = classes;
-    return el;
-}
-
+import Faces,{createElement} from './cube-faces'
 
 class Cube {
     constructor(element, options = {}){
         this.cubeEl = element;
         this.options = options;
 
-        this.faces = {
-            front: {
-                el: createElement('section', 'cube__face face__front'),
-                directionalBorder: {
-                    right: {
-                        faceBorders: {
-                            top: [1, 1, 1, 1],
-                            right: [6, 1, 1, 1],
-                            bottom: [6, 1, 1, 6],
-                            left: [1, 1, 1, 6]
-                        }
-                    },
-                    left: {
-                        faceBorders: {
-                            top: [1, 1, 1, 1],
-                            right: [6, 1, 1, 1],
-                            bottom: [6, 6, 1, 1],
-                            left: [1, 1, 1, 6]
-                        }
-                    },
-                },
-                initialRotation: 'rotateX(0deg)',
-                iteration: 0
-            },
-            bottom: {
-                el: createElement('section', 'cube__face face__bottom'),
-                directionalBorder: {
-                    right:{
-                        faceBorders: {
-                            top: [1, 1, 1, 1],
-                            right: [1, 1, 1, 1],
-                            bottom: [1, 1, 1, 1],
-                            left: [1, 1, 1, 1]
-                        }
-                    },
-                    left: {
-                        faceBorders: {
-                            top: [1, 1, 1, 1],
-                            right: [1, 1, 1, 1],
-                            bottom: [1, 1, 1, 1],
-                            left: [1, 1, 1, 1]
-                        }
-                    }
-                },
-                initialRotation: 'rotateX(-90deg)',
-                iteration: 0
-            },
-            top: {
-                el: createElement('section', 'cube__face face__top'),
-                directionalBorder: {
-                    right: {
-                        faceBorders: {
-                            top: [6, 1, 1, 6],
-                            right: [6, 6, 1, 1],
-                            bottom: [1, 6, 6, 1],
-                            left: [1, 1, 6, 6]
-                        },
-                    },
-                    left: {
-                        faceBorders: {
-                            top: [6, 6, 1, 1],
-                            right: [6, 1, 1, 6],
-                            bottom: [1, 1, 6, 6],
-                            left: [1, 6, 6, 1]
-                        },
-                    }
-                },
-                initialRotation: 'rotateX(90deg)',
-                iteration: 0
-            },
-            left: {
-                el: createElement('section', 'cube__face face__left'), 
-                directionalBorder: {
-                    right: {
-                        faceBorders: {
-                            top: [1, 1, 1, 1],
-                            right: [1, 6, 1, 1],
-                            bottom: [6, 6, 1, 1],
-                            left: [6, 1, 1, 1]
-                        }
-                    },
-                    left: {
-                        faceBorders: {
-                            top: [1, 1, 1, 1],
-                            right: [1, 6, 1, 1],
-                            bottom: [6, 1, 1, 6],
-                            left: [6, 1, 1, 1]
-                        }
-                    }
-                },
-                initialRotation: 'rotateY(-90deg)',
-                iteration: 0
-            },
-            right: {
-                el: createElement('section', 'cube__face face__right'), 
-                directionalBorder: {
-                  right: {
-                    faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 1, 1, 6],
-                        bottom: [1, 1, 6, 6],
-                        left: [1, 1, 6, 1]
-                    }
-                  },
-                  left: {
-                    faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 6, 1, 6],
-                        bottom: [1, 6, 6, 1],
-                        left: [1, 1, 6, 1]
-                    }
-                  }  
-                },
-                initialRotation: 'rotateY(90deg)',
-                iteration: 0
-            },
-            back: {
-                el: createElement('section', 'cube__face face__back'),
-                directionalBorder: {
-                    right: {
-                        faceBorders: {
-                            top: [1, 1, 1, 1],
-                            right: [1, 1, 6, 1],
-                            bottom: [1, 6, 6, 1],
-                            left: [1, 6, 1, 1]
-                        }
-                    },
-                    left: {
-                        faceBorders: {
-                            top: [1, 1, 1, 1],
-                            right: [1, 1, 6, 1],
-                            bottom: [1, 1, 6, 6],
-                            left: [1, 1, 1, 1]
-                        }
-                    } 
-                },
-                initialRotation: 'rotateY(180deg)',
-                iteration: 0
-            }
-        }
-
-        this.rotateX = options.rotateX;
-        this.rotateY = options.rotateY;
+        this.faces = new Faces()
+        
+        this.rotate = options.rotate;
         this.speed = options.speed;
         this.rotation = options.rotation;
         this.direction = options.direction;
@@ -164,122 +17,132 @@ class Cube {
         
         this.hidden = false;
         this.render = this.renderCube()
-        this.rotate = this.rotateCube()
+        // this.rotate = this.rotateCube()
 
         // this.cubeEl.addEventListener('click', this.rotateCube)
 
+    }
 
+    setBorders = (direction) => {
+                    
+        for (let f in this.faces) {
+            const face = this.faces[f]
+
+            face.iteration === 3 ? face.iteration = 0 : face.iteration += 1;
+
+            if(this.isOuter){   
+        
+                Object.assign(face.el.style, {
+                    borderTopWidth: `${face.directionalBorder[direction].faceBorders.top[face.iteration]}px`,
+                    borderRightWidth: `${face.directionalBorder[direction].faceBorders.right[face.iteration]}px`,
+                    borderBottomWidth: `${face.directionalBorder[direction].faceBorders.bottom[face.iteration]}px`,
+                    borderLeftWidth: `${face.directionalBorder[direction].faceBorders.left[face.iteration]}px`
+                })
+
+            }
+        
+        }
     }
 
         
     renderCube = () => {
         const width = getComputedStyle(document.body).getPropertyValue('--cube-container-width');
+
+        const n = (this.isOuter) ? 1 : 2;
         
-        if(this.isOuter){
-            Object.assign(this.cubeEl.style, {
-                width: `calc(${width}/2)`,
-                height: `calc(${width}/2)`,
-                transform: `translateX(50%) rotateX(0deg) rotateY(${this.rotateY}deg) scale3d(1,1,1) rotateZ(0deg)`
-            })
-        }else{
-            Object.assign(this.cubeEl.style, {
-                width: `calc(${width}/2)`,
-                height: `calc(${width}/2)`,
-                transform: `translateX(50%) rotateX(0deg) rotateY(${this.rotateY}deg) scale3d(.5,.5,.5) rotateZ(0deg)`
-            })
-        }
+        Object.assign(this.cubeEl.style, {
+            width: `calc(${width}/2)`,
+            height: `calc(${width}/2)`,
+            transform: `translateX(50%) rotateX(0deg) rotateY(${this.rotate}deg) scale3d(${1/n},${1/n},${1/n}) rotateZ(0deg)`
+        })
+ 
 
         for( let f in this.faces) {
             const face = this.faces[f];
+
+            Object.assign(face.el.style, {
+                transform:`${face.initialRotation} translateZ(calc(${width}/4))`,
+            })
             
             if(this.isOuter){
-                console.log(this.direction)
                 Object.assign(face.el.style, {
-                    transform: `${face.initialRotation} translateZ(calc(${width}/4))`,
                     borderTopWidth: `${face.directionalBorder[this.direction].faceBorders.top[face.iteration]}px`,
                     borderRightWidth: `${face.directionalBorder[this.direction].faceBorders.right[face.iteration]}px`,
                     borderBottomWidth: `${face.directionalBorder[this.direction].faceBorders.bottom[face.iteration]}px`,
                     borderLeftWidth: `${face.directionalBorder[this.direction].faceBorders.left[face.iteration]}px`
                 })
-            }else {
-                Object.assign(face.el.style, {
-                    transform:`${face.initialRotation} translateZ(calc(${width}/4))`,
-                })
             }
-            
+
             this.cubeEl.appendChild(face.el)
+            
         }
 
     }
 
+    click (direction) {
+        this.cubeEl.addEventListener('click',() => this.rotateCube(null,direction,'click'))
+    }
+
     transformCube = (direction) => {
             const n = (this.isOuter) ? 1 : 2;
+            const o = (this.isOuter) ? "" : "-";
+            const op = (this.isOuter) ? "+" : "-";
 
-            switch(direction){
-                case 'right':
-                    if(this.isOuter){
-                        return Object.assign(this.cubeEl.style, {
-                            transform: `translateX(50%) rotateY(${this.rotateY += this.rotation}deg) scale3d(${1/n},${1/n},${1/n}) rotateZ(0deg)`
-                        })
-                    }else{
-                        return Object.assign(this.cubeEl.style, {
-                            transform: `translateX(50%) rotateY(${this.rotateY -= this.rotation}deg) scale3d(${1/n},${1/n},${1/n}) rotateZ(0deg)`
-                        })
-                    }  
-                break;
-                case 'left':
-                    if(this.isOuter){
-                        return Object.assign(this.cubeEl.style, {
-                            transform: `translateX(50%) rotateY(${this.rotateY -= this.rotation}deg) scale3d(${1/n},${1/n},${1/n}) rotateZ(0deg)`
-                        })
-                    }else{
-                        return Object.assign(this.cubeEl.style, {
-                            transform: `translateX(50%) rotateY(${this.rotateY += this.rotation}deg) scale3d(${1/n},${1/n},${1/n}) rotateZ(0deg)`
-                        })
-                    } 
-                break;
+
+            const transformation = (rX = 0,rY = 0,rZ = 0) => {
+                let s = `${o}${this.rotate = eval(`${this.rotate} ${op} ${this.rotation}`) }`
+                if(s.charAt(1) === '-')  s = s.substring(1,s.length);
+
+                let rotateX = rX > 0 ? s : rX < 0 ? -s : 0;
+                let rotateY = rY > 0 ? s : rY < 0 ? -s : 0;
+                let rotateZ = rZ > 0 ? s : rZ < 0 ? -s : 0;
+
+                return Object.assign(this.cubeEl.style, {
+                    transform: `translateX(50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale3d(${1/n},${1/n},${1/n})`
+                })
+
             }
+            
+            const transform ={
+                right: () => {
+                    transformation(0,1,0);
+                },
+                left: () => {
+                    transformation(0,-1,0);
+                },
+                topLeft: () => {
+                    transformation(0,0,1);
+                },
+                topRight: () => {
+                    transformation(1,0,0);
+                },
+                bottomLeft: () => {
+                    transformation(0,0,-1);
+                },
+                bottomRight: () => {
+                    transformation(-1,0,0);
+                }
+            }
+            transform[direction]()
         
     }
 
 
-    rotateCube = () => {
-
-        setInterval(() => {
+    rotateCube = (speed, direction,str = null) => {
+        const rotate = () => {
             if(this.hidden === false){
-
-                switch(this.direction){
-                    case 'right':
-                        this.transformCube('right')
-                    break;
-                    case 'left':
-                        this.transformCube('left')
-                    break;
-                }
-           
-                if(this.isOuter){
-                    
-                    for (let f in this.faces) {
-                        const face = this.faces[f]
-
-                        face.iteration === 3 ? face.iteration = 0 : face.iteration += 1;
-
-                        //borders
-                        Object.assign(face.el.style, {
-                            borderTopWidth: `${face.directionalBorder[this.direction].faceBorders.top[face.iteration]}px`,
-                            borderRightWidth: `${face.directionalBorder[this.direction].faceBorders.right[face.iteration]}px`,
-                            borderBottomWidth: `${face.directionalBorder[this.direction].faceBorders.bottom[face.iteration]}px`,
-                            borderLeftWidth: `${face.directionalBorder[this.direction].faceBorders.left[face.iteration]}px`
-                        })
-
-                    }
                 
-                //inner cube
-                }
+                this.transformCube(direction)
+
+                if( str === 'click') this.innerCube.transformCube(direction)
+
+                this.setBorders(direction,true);
+      
             }
+        }
 
-
-        },this.speed)
+        speed === null ? rotate() : setInterval( () => rotate(),speed)
+        
 
         document.addEventListener("visibilitychange", ()=> {
             this.hidden === true ? this.hidden = false : this.hidden = true;
@@ -294,8 +157,8 @@ export default class DoubleCube {
         this.wrapperEl = element;
 
         this.options = {
-            rotateX: options.rotateX || -35.5,//deg
-            rotateY: options.rotateY || 0,//deg
+            // rotateX: options.rotateX || -35.5,//deg
+            rotate: options.rotate || 0,//deg
             rotation: options.rotation || 90,
             speed: options.speed || 3000,
             direction: options.direction || 'right'
@@ -308,10 +171,36 @@ export default class DoubleCube {
         this.outerCube = new Cube(this.outerCubeEl, this.options);
         this.innerCube = new Cube(this.innerCubeEl, this.options);
 
+        this.outerCube.innerCube = this.innerCube
+
         this.wrapperEl.appendChild(this.outerCubeEl)
         this.wrapperEl.appendChild(this.innerCubeEl)
-        
 
     }
-}
 
+    render ()  { 
+        this.outerCube.renderCube()
+        this.innerCube.renderCube()
+
+        console.log(this.outerCube)
+        console.log(this.innerCube)
+    }
+
+    onClick (direction) {
+        this.outerCube.click(direction)
+        this.innerCube.click(direction)
+    }
+    
+
+    rotate (obj = { speed:3000,direction:'right'}){
+        console.log(Object.entries(obj).length)
+        if(arguments[0] === undefined){
+            return this
+        }
+
+        this.outerCube.rotateCube(obj.speed, obj.direction)
+        this.innerCube.rotateCube(obj.speed, obj.direction)
+    }
+    rotateOuter() { console.log('rotateOuter')}
+    rotateInner() { console.log('rotateOuter')}
+}
