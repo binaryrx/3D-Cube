@@ -1,4 +1,19 @@
-import Faces,{createElement} from './cube-faces'
+import Faces,{createElement} from './cube-faces';
+
+export function debounce(func, wait, immediate) {
+	let timeout;
+	return () => {
+		const context = this, args = arguments;
+		const later = () => {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		const callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
 
 class Cube {
     constructor(element, options = {},wrapperEl){
@@ -12,7 +27,7 @@ class Cube {
 
         this.faces = new Faces(this.border.thinWidth, this.border.thicWidth)
 
-        this.rotate = options.rotate;
+        this.rot = options.rotate;
         this.speed = options.speed;
         this.rotation = options.rotation;
         this.direction = options.direction;
@@ -52,7 +67,7 @@ class Cube {
         Object.assign(this.cubeEl.style, {
             width: `calc(${width}/2)`,
             height: `calc(${width}/2)`,
-            transform: `translateX(50%) rotateX(0deg) rotateY(${this.rotate}deg) scale3d(${1/n},${1/n},${1/n}) rotateZ(0deg)`
+            transform: `translateX(50%) rotateX(0deg) rotateY(${this.rot}deg) scale3d(${1/n},${1/n},${1/n}) rotateZ(0deg)`
         })
  
 
@@ -77,25 +92,31 @@ class Cube {
         }
 
     }
+    
 
-    click (direction) {
-        this.cubeEl.addEventListener('click',() => this.rotateCube(null,direction,'click'))
+    onClick (outerDirection,innerDirection) {
+        this.cubeEl.addEventListener('click',() => {
+            console.log(this)
+            this.rotateCube(null,outerDirection,innerDirection)
+        })
     }
 
     transformCube = (direction) => {
-            const n = (this.isOuter) ? 1 : 2;
-            const o = (this.isOuter) ? "" : "-";
-            const op = (this.isOuter) ? "+" : "-";
-
 
             const transformation = (rX = 0,rY = 0,rZ = 0) => {
-                let s = `${o}${this.rotate = eval(`${this.rotate} ${op} ${this.rotation}`) }`
-                if(s.charAt(1) === '-')  s = s.substring(1,s.length);
+                const n = (this.isOuter) ? 1 : 2;
+                let s = parseInt(`${this.rot = this.rot + this.rotation}`);
+                // let sm = parseInt(`${this.rot = this.rot - this.rotation}`);
+                console.log(s,direction)
+                
+                // console.log(s,sm,direction);
+                
 
                 let rotateX = rX > 0 ? s : rX < 0 ? -s : 0;
                 let rotateY = rY > 0 ? s : rY < 0 ? -s : 0;
                 let rotateZ = rZ > 0 ? s : rZ < 0 ? -s : 0;
 
+                console.log(rotateX, rotateY, rotateZ)
                 return Object.assign(this.cubeEl.style, {
                     transform: `translateX(50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale3d(${1/n},${1/n},${1/n})`
                 })
@@ -127,13 +148,14 @@ class Cube {
     }
 
 
-    rotateCube = (speed, direction,str = null) => {
+    rotateCube = (speed, direction,innerDirection = null) => {
+
         const rotate = () => {
             if(this.hidden === false){
                 
                 this.transformCube(direction)
 
-                if( str === 'click') this.innerCube.transformCube(direction)
+                if( innerDirection !== null ) this.innerCube.transformCube(innerDirection)
 
                 this.setBorders(direction,true);
       
@@ -147,6 +169,36 @@ class Cube {
             this.hidden === true ? this.hidden = false : this.hidden = true;
         });
         
+    }
+
+    sequence(directionsArr) {
+
+        
+
+        const rotate = (direction) => {
+            this.transformCube(direction)
+            this.setBorders(direction,true);
+    }
+
+        const loop  = (function l(i) {
+            setTimeout( () => {
+                rotate(directionsArr[i].direction)
+                if(++i <directionsArr.length ){
+                    l(i)
+                }else{
+                    loop(0)
+                }
+            },3000)
+        })
+        loop(0);
+
+    }
+
+    rotate (obj = { speed:3000,direction:'right'}){
+        if(arguments[0] === undefined){
+            return this
+        }
+        this.rotateCube(obj.speed, obj.direction)
     }
 
 }
@@ -186,18 +238,18 @@ export default class DoubleCube {
         this.innerCube.renderCube()
     }
 
-    onClick (direction) {
-        this.outerCube.click(direction)
-        this.innerCube.click(direction)
+    onClick (outerDirection,innerDirection) {
+        this.outerCube.onClick(outerDirection,innerDirection)
+        return this
     }
-    
+
 
     rotate (obj = { speed:3000,direction:'right'}){
         console.log(Object.entries(obj).length)
         if(arguments[0] === undefined){
             return this
         }
-
+        
         this.outerCube.rotateCube(obj.speed, obj.direction)
         this.innerCube.rotateCube(obj.speed, obj.direction)
     }

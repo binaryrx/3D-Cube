@@ -4,12 +4,6 @@ export function createElement (element,classes){
     return el;
 }
 
-
-
-// const thicBorder = 6;
-// const thinBorder = 1;
-
-
 export default class Faces {
     constructor(thinBorder = 1, thicBorder = 6) {
         this.front = {
