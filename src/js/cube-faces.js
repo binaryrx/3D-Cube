@@ -4,62 +4,65 @@ export function createElement (element,classes){
     return el;
 }
 
+
+
+// const thicBorder = 6;
+// const thinBorder = 1;
+
+
 export default class Faces {
-    constructor(){
+    constructor(thinBorder = 1, thicBorder = 6) {
         this.front = {
             el: createElement('section', 'cube__face face__front'),
             directionalBorder: {
-                right: {
-                    faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [6, 1, 1, 1],
-                        bottom: [6, 1, 1, 6],
-                        left: [1, 1, 1, 6]
-                    }
-                },
                 left: {
                     faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [6, 1, 1, 1],
-                        bottom: [6, 6, 1, 1],
-                        left: [1, 1, 1, 6]
+                        top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        right: [thicBorder, thinBorder, thinBorder, thinBorder],
+                        bottom: [thicBorder, thinBorder, thinBorder, thicBorder],
+                        left: [thinBorder, thinBorder, thinBorder, thicBorder]
+                    }
+                },
+                right: {
+                    faceBorders: {
+                        top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        right: [thicBorder, thinBorder, thinBorder, thinBorder],
+                        bottom: [thicBorder, thicBorder, thinBorder, thinBorder],
+                        left: [thinBorder, thicBorder, thinBorder, thicBorder]
+                    }
+                },
+                topRight: {
+                    faceBorders: {
+                        top: [thinBorder, thicBorder, thicBorder, thinBorder],
+                        right: [thicBorder, thicBorder, thinBorder, thinBorder],
+                        bottom: [thicBorder, thinBorder, thinBorder, thicBorder],
+                        left: [thinBorder, thinBorder, thicBorder, thicBorder]
                     }
                 },
                 topLeft: {
-                    faceBorders: {
-                        top: [1, 6, 1, 1],
-                        right: [6, 6, 1, 1],
-                        bottom: [6, 1, 1, 6],
-                        left: [1, 1, 6, 6]
-                    }
-                },
-                //TODO
-                topRight: {
                  faceBorders: {
-                        top: [1, 6, 1, 1],
-                        right: [6, 6, 1, 1],
-                        bottom: [6, 1, 1, 6],
-                        left: [1, 1, 6, 6]
+                        top: [thinBorder, thicBorder, thinBorder, thinBorder],
+                        right: [thicBorder, thicBorder, thinBorder, thinBorder],
+                        bottom: [thicBorder, thinBorder, thinBorder, thinBorder],
+                        left: [thinBorder, thinBorder, thinBorder, thinBorder]
                     }
                 },
                 bottomLeft: {
                     faceBorders: {
-                        top: [1, 6, 1, 1],
-                        right: [6, 6, 1, 1],
-                        bottom: [6, 1, 1, 6],
-                        left: [1, 1, 6, 6]
+                        top: [thinBorder, thinBorder, thicBorder, thicBorder],
+                        right: [thicBorder, thinBorder, thinBorder, thicBorder],
+                        bottom: [thicBorder, thicBorder, thinBorder, thinBorder],
+                        left: [thinBorder, thicBorder, thicBorder, thinBorder]
                     }
                 },
                 bottomRight: {
                     faceBorders: {
-                        top: [1, 6, 1, 1],
-                        right: [6, 6, 1, 1],
-                        bottom: [6, 1, 1, 6],
-                        left: [1, 1, 6, 6]
+                        top: [thinBorder, thicBorder, thinBorder, thicBorder],
+                        right: [thicBorder, thinBorder, thinBorder, thicBorder],
+                        bottom: [thicBorder, thinBorder, thinBorder, thinBorder],
+                        left: [thinBorder, thinBorder, thicBorder, thinBorder]
                     }
                 },
-            
-                
             },
             initialRotation: 'rotateX(0deg)',
             iteration: 0
@@ -67,56 +70,54 @@ export default class Faces {
         this.bottom = {
             el: createElement('section', 'cube__face face__bottom'),
             directionalBorder: {
-                right:{
+                left:{
                     faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 1, 1, 1],
-                        bottom: [1, 1, 1, 1],
-                        left: [1, 1, 1, 1]
+                        top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        right: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        bottom: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        left: [thinBorder, thinBorder, thinBorder, thinBorder]
                     }
                 },
-                left: {
+                right: {
                     faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 1, 1, 1],
-                        bottom: [1, 1, 1, 1],
-                        left: [1, 1, 1, 1]
+                        top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        right: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        bottom: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        left: [thinBorder, thinBorder, thinBorder, thinBorder]
+                    }
+                },
+                topRight: {
+                    faceBorders: {
+                        top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        right: [thinBorder, thicBorder, thinBorder, thinBorder],
+                        bottom: [thinBorder, thicBorder, thicBorder, thinBorder],
+                        left: [thinBorder, thinBorder, thicBorder, thinBorder]
                     }
                 },
                 topLeft: {
                     faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 6, 1, 1],
-                        bottom: [1, 6, 1, 1],
-                        left: [1, 1, 6, 1]
-                    }
-                },
-                //TODO
-                topRight: {
-                    faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 6, 1, 1],
-                        bottom: [1, 6, 1, 1],
-                        left: [1, 1, 6, 1]
+                        top: [thinBorder, thinBorder, thicBorder, thinBorder],
+                        right: [thinBorder, thicBorder, thicBorder, thinBorder],
+                        bottom: [thinBorder, thicBorder, thinBorder, thinBorder],
+                        left: [thinBorder, thinBorder, thinBorder, thinBorder]
                     }
                 },
                 bottomLeft: {
                     faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 6, 1, 1],
-                        bottom: [1, 6, 1, 1],
-                        left: [1, 1, 6, 1]
+                        top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        right: [thinBorder, thicBorder, thinBorder, thicBorder],
+                        bottom: [thinBorder, thinBorder, thicBorder, thicBorder],
+                        left: [thinBorder, thinBorder, thicBorder, thinBorder]
                     }
                 },
                 bottomRight: {
                     faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 6, 1, 1],
-                        bottom: [1, 6, 1, 1],
-                        left: [1, 1, 6, 1]
+                        top: [thinBorder, thinBorder, thicBorder, thinBorder],
+                        right: [thinBorder, thinBorder, thicBorder, thicBorder],
+                        bottom: [thinBorder, thinBorder, thinBorder, thicBorder],
+                        left: [thinBorder, thinBorder, thinBorder, thinBorder]
                     } 
                 },
-                
             },
             initialRotation: 'rotateX(-90deg)',
             iteration: 0
@@ -124,53 +125,52 @@ export default class Faces {
         this.top = {
             el: createElement('section', 'cube__face face__top'),
             directionalBorder: {
-                right: {
-                    faceBorders: {
-                        top: [6, 1, 1, 6],
-                        right: [6, 6, 1, 1],
-                        bottom: [1, 6, 6, 1],
-                        left: [1, 1, 6, 6]
-                    },
-                },
                 left: {
                     faceBorders: {
-                        top: [6, 6, 1, 1],
-                        right: [6, 1, 1, 6],
-                        bottom: [1, 1, 6, 6],
-                        left: [1, 6, 6, 1]
+                        top: [thicBorder, thinBorder, thinBorder, thicBorder],
+                        right: [thicBorder, thicBorder, thinBorder, thinBorder],
+                        bottom: [thinBorder, thicBorder, thicBorder, thinBorder],
+                        left: [thinBorder, thinBorder, thicBorder, thicBorder]
+                    },
+                },
+                right: {
+                    faceBorders: {
+                        top: [thicBorder, thicBorder, thinBorder, thinBorder],
+                        right: [thicBorder, thinBorder, thinBorder, thicBorder],
+                        bottom: [thinBorder, thinBorder, thicBorder, thicBorder],
+                        left: [thinBorder, thicBorder, thicBorder, thinBorder]
+                    },
+                },
+                topRight: {
+                    faceBorders: {
+                        top: [thicBorder, thinBorder, thinBorder, thicBorder],
+                        right: [thicBorder, thinBorder, thinBorder, thinBorder],
+                        bottom: [thinBorder, thinBorder, thicBorder, thinBorder],
+                        left: [thinBorder, thicBorder, thinBorder, thicBorder]
                     },
                 },
                 topLeft: {
                     faceBorders: {
-                        top: [6, 1, 1, 6],
-                        right: [6, 1, 1, 1],
-                        bottom: [1, 1, 6, 1],
-                        left: [1, 6, 1, 6]
-                    },
-                },
-                //TODO
-                topRight: {
-                    faceBorders: {
-                        top: [6, 1, 1, 6],
-                        right: [6, 1, 1, 1],
-                        bottom: [1, 1, 6, 1],
-                        left: [1, 6, 1, 6]
+                        top: [thicBorder, thinBorder, thinBorder, thinBorder],
+                        right: [thicBorder, thinBorder, thinBorder, thicBorder],
+                        bottom: [thinBorder, thinBorder, thinBorder, thicBorder],
+                        left: [thinBorder, thicBorder, thinBorder, thinBorder]
                     },
                 },
                 bottomLeft: {
                     faceBorders: {
-                        top: [6, 1, 1, 6],
-                        right: [6, 1, 1, 1],
-                        bottom: [1, 1, 6, 1],
-                        left: [1, 6, 1, 6]
+                        top: [thicBorder, thicBorder, thinBorder, thinBorder],
+                        right: [thicBorder, thinBorder, thinBorder, thinBorder],
+                        bottom: [thinBorder, thinBorder, thicBorder, thinBorder],
+                        left: [thinBorder, thicBorder, thinBorder, thicBorder]
                     },
                 },
                 bottomRight: {
                     faceBorders: {
-                        top: [6, 1, 1, 6],
-                        right: [6, 1, 1, 1],
-                        bottom: [1, 1, 6, 1],
-                        left: [1, 6, 1, 6]
+                        top: [thicBorder, thinBorder, thinBorder, thinBorder],
+                        right: [thicBorder, thicBorder, thinBorder, thinBorder],
+                        bottom: [thinBorder, thicBorder, thinBorder, thinBorder],
+                        left: [thinBorder, thinBorder, thinBorder, thinBorder]
                     },
                 },
             },
@@ -180,56 +180,54 @@ export default class Faces {
         this.left= {
             el: createElement('section', 'cube__face face__left'), 
             directionalBorder: {
-                right: {
-                    faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 6, 1, 1],
-                        bottom: [6, 6, 1, 1],
-                        left: [6, 1, 1, 1]
-                    }
-                },
                 left: {
                     faceBorders: {
-                        top: [1, 6, 1, 1],
-                        right: [1, 1, 1, 1],
-                        bottom: [6, 1, 1, 6],
-                        left: [6, 6, 1, 1]
+                        top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        right: [thinBorder, thicBorder, thinBorder, thinBorder],
+                        bottom: [thicBorder, thicBorder, thinBorder, thinBorder],
+                        left: [thicBorder, thinBorder, thinBorder, thinBorder]
+                    }
+                },
+                right: {
+                    faceBorders: {
+                        top: [thinBorder, thicBorder, thinBorder, thinBorder],
+                        right: [thinBorder, thinBorder, thinBorder, thicBorder],
+                        bottom: [thicBorder, thinBorder, thinBorder, thicBorder],
+                        left: [thicBorder, thinBorder, thinBorder, thinBorder]
                     }
                 },
                 topLeft: {
                     faceBorders: {
-                        top: [1, 6, 1, 1],
-                        right: [1, 1, 1, 1],
-                        bottom: [6, 1, 1, 1],
-                        left: [6, 6, 1, 1]
+                        top: [thinBorder, thicBorder, thicBorder, thinBorder],
+                        right: [thinBorder, thinBorder, thicBorder, thicBorder],
+                        bottom: [thicBorder, thinBorder, thinBorder, thicBorder],
+                        left: [thicBorder, thicBorder, thinBorder, thinBorder]
                     }
                 },
-                //TODO
                 topRight: {
                     faceBorders: {
-                        top: [1, 6, 1, 1],
-                        right: [1, 1, 1, 1],
-                        bottom: [6, 1, 1, 1],
-                        left: [6, 6, 1, 1]
+                        top: [thinBorder, thicBorder, thinBorder, thinBorder],
+                        right: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        bottom: [thicBorder, thinBorder, thinBorder, thinBorder],
+                        left: [thicBorder, thicBorder, thinBorder, thinBorder]
                     }
                 },
                 bottomLeft: {
                     faceBorders: {
-                        top: [1, 6, 1, 1],
-                        right: [1, 1, 1, 1],
-                        bottom: [6, 1, 1, 1],
-                        left: [6, 6, 1, 1]
+                        top: [thinBorder, thinBorder, thinBorder, thicBorder],
+                        right: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        bottom: [thicBorder, thinBorder, thinBorder, thinBorder],
+                        left: [thicBorder, thinBorder, thinBorder, thicBorder]
                     }
                 },
                 bottomRight: {
                     faceBorders: {
-                        top: [1, 6, 1, 1],
-                        right: [1, 1, 1, 1],
-                        bottom: [6, 1, 1, 1],
-                        left: [6, 6, 1, 1]
+                        top: [thinBorder, thinBorder, thicBorder, thicBorder],
+                        right: [thinBorder, thicBorder, thicBorder, thinBorder],
+                        bottom: [thicBorder, thicBorder, thinBorder, thinBorder],
+                        left: [thicBorder, thinBorder, thinBorder, thicBorder]
                     }
                 },
-                
             },
             initialRotation: 'rotateY(-90deg)',
             iteration: 0
@@ -237,51 +235,54 @@ export default class Faces {
         this.right= {
             el: createElement('section', 'cube__face face__right'), 
             directionalBorder: {
+                left: {
+                faceBorders: {
+                    top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                    right: [thinBorder, thinBorder, thinBorder, thicBorder],
+                    bottom: [thinBorder, thinBorder, thicBorder, thicBorder],
+                    left: [thinBorder, thinBorder, thicBorder, thinBorder]
+                }
+              },
               right: {
                 faceBorders: {
-                    top: [1, 1, 1, 1],
-                    right: [1, 1, 1, 6],
-                    bottom: [1, 1, 6, 6],
-                    left: [1, 1, 6, 1]
-                }
-              },
-              left: {
-                faceBorders: {
-                    top: [1, 1, 1, 1],
-                    right: [1, 6, 1, 6],
-                    bottom: [1, 6, 6, 1],
-                    left: [1, 1, 6, 1]
+                    top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                    right: [thinBorder, thicBorder, thinBorder, thicBorder],
+                    bottom: [thinBorder, thicBorder, thicBorder, thinBorder],
+                    left: [thinBorder, thinBorder, thicBorder, thinBorder]
                 }
               }, 
-              topLeft: {
+              topRight: {
                 faceBorders: {
-                    top: [1, 1, 6, 1],
-                    right: [1, 1, 6, 6],
-                    bottom: [1, 6, 1, 6],
-                    left: [1, 1, 1, 1]
+                    top: [thinBorder, thinBorder, thicBorder, thinBorder],
+                    right: [thinBorder, thinBorder, thicBorder, thicBorder],
+                    bottom: [thinBorder, thicBorder, thinBorder, thicBorder],
+                    left: [thinBorder, thinBorder, thinBorder, thinBorder]
                 }
               },
-                //TODO
-                topRight: {
-                    top: [1, 1, 6, 1],
-                    right: [1, 1, 6, 6],
-                    bottom: [1, 6, 1, 6],
-                    left: [1, 1, 1, 1]
-                },
-                bottomLeft: {
-                    top: [1, 1, 6, 1],
-                    right: [1, 1, 6, 6],
-                    bottom: [1, 6, 1, 6],
-                    left: [1, 1, 1, 1]
-                },
-                bottomRight: {
-                    top: [1, 1, 6, 1],
-                    right: [1, 1, 6, 6],
-                    bottom: [1, 6, 1, 6],
-                    left: [1, 1, 1, 1]
-                },
-              
-              
+              topLeft: {
+                faceBorders: {
+                    top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                    right: [thinBorder, thinBorder, thicBorder, thicBorder],
+                    bottom: [thinBorder, thicBorder, thinBorder, thinBorder],
+                    left: [thinBorder, thinBorder, thinBorder, thinBorder]
+                }
+              },
+              bottomLeft: {
+                faceBorders: {
+                    top: [thinBorder, thinBorder, thicBorder, thinBorder],
+                    right: [thinBorder, thicBorder, thicBorder, thinBorder],
+                    bottom: [thinBorder, thicBorder, thinBorder, thicBorder],
+                    left: [thinBorder, thinBorder, thinBorder, thinBorder]
+                }
+              },
+              bottomRight: {
+                faceBorders: {
+                    top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                    right: [thinBorder, thinBorder, thinBorder, thinBorder],
+                    bottom: [thinBorder, thinBorder, thinBorder, thinBorder],
+                    left: [thinBorder, thinBorder, thinBorder, thinBorder]
+                }
+              },
               
             },
             initialRotation: 'rotateY(90deg)',
@@ -290,53 +291,52 @@ export default class Faces {
         this.back= {
             el: createElement('section', 'cube__face face__back'),
             directionalBorder: {
-                right: {
-                    faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 1, 6, 1],
-                        bottom: [1, 6, 6, 1],
-                        left: [1, 6, 1, 1]
-                    }
-                },
                 left: {
                     faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 1, 6, 1],
-                        bottom: [1, 1, 6, 6],
-                        left: [1, 1, 1, 1]
+                        top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        right: [thinBorder, thinBorder, thicBorder, thinBorder],
+                        bottom: [thinBorder, thicBorder, thicBorder, thinBorder],
+                        left: [thinBorder, thicBorder, thinBorder, thinBorder]
+                    }
+                },
+                right: {
+                    faceBorders: {
+                        top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        right: [thinBorder, thinBorder, thicBorder, thinBorder],
+                        bottom: [thinBorder, thinBorder, thicBorder, thicBorder],
+                        left: [thinBorder, thinBorder, thinBorder, thicBorder]
+                    }
+                },
+                topRight: {
+                    faceBorders: {
+                        top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        right: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        bottom: [thinBorder, thinBorder, thicBorder, thinBorder],
+                        left: [thinBorder, thinBorder, thinBorder, thinBorder]
                     }
                 },
                 topLeft: {
                     faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 1, 1, 1],
-                        bottom: [1, 1, 6, 1],
-                        left: [1, 1, 1, 1]
-                    }
-                },
-                //TODO
-                topRight: {
-                    faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 1, 1, 1],
-                        bottom: [1, 1, 6, 1],
-                        left: [1, 1, 1, 1]
+                        top: [thinBorder, thinBorder, thicBorder, thinBorder],
+                        right: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        bottom: [thinBorder, thinBorder, thinBorder, thicBorder],
+                        left: [thinBorder, thinBorder, thicBorder, thicBorder]
                     }
                 },
                 bottomLeft: {
                     faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 1, 1, 1],
-                        bottom: [1, 1, 6, 1],
-                        left: [1, 1, 1, 1]
+                        top: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        right: [thinBorder, thinBorder, thinBorder, thicBorder],
+                        bottom: [thinBorder, thinBorder, thicBorder, thicBorder],
+                        left: [thinBorder, thicBorder, thinBorder, thinBorder]
                     }
                 },
                 bottomRight: {
                     faceBorders: {
-                        top: [1, 1, 1, 1],
-                        right: [1, 1, 1, 1],
-                        bottom: [1, 1, 6, 1],
-                        left: [1, 1, 1, 1]
+                        top: [thinBorder, thinBorder, thicBorder, thinBorder],
+                        right: [thinBorder, thinBorder, thinBorder, thinBorder],
+                        bottom: [thinBorder, thicBorder, thinBorder, thinBorder],
+                        left: [thinBorder, thicBorder, thicBorder, thinBorder]
                     }
                 },
             },

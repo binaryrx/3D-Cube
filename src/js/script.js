@@ -40,9 +40,9 @@ const randomIndex = () => Math.floor((Math.random() * directions.length))
 // cube6.rotate({speed:2000,direction:'bottomRight'})
 cube1.onClick('left')
 cube2.onClick('right')
-cube3.onClick('topLeft')
-cube4.onClick('topRight')
+cube3.onClick('topRight')
 cube5.onClick('bottomLeft')
+cube4.onClick('topLeft')
 cube6.onClick('bottomRight')
 // cube2.wrapperEl.parentElement.style.display = 'none'
 // cube3.wrapperEl.parentElement.style.display = 'none'

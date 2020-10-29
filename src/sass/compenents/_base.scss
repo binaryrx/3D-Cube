@@ -4,11 +4,14 @@
 
     //common for all
 
+    --cube-border-thin: 1;
+    --cube-border-thic: 6;
 
     //small 
     @media #{$mq-sm}{
         --font-size: #{$mq-sm-font-size};
         --cube-container-width: 10rem;
+        
     }
 
     //medium
@@ -22,6 +25,7 @@
         --font-size: #{$mq-lg-font-size};
         --cube-container-width: 20rem;
     }
+
 }
 
 html{

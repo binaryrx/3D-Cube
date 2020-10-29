@@ -1,26 +1,27 @@
 import Faces,{createElement} from './cube-faces'
 
 class Cube {
-    constructor(element, options = {}){
+    constructor(element, options = {},wrapperEl){
         this.cubeEl = element;
+        this.wrapperEl = wrapperEl;
         this.options = options;
+        this.border = {
+            thinWidth: getComputedStyle(document.body).getPropertyValue('--cube-border-thin'),
+            thicWidth: getComputedStyle(document.body).getPropertyValue('--cube-border-thic')
+        }
 
-        this.faces = new Faces()
-        
+        this.faces = new Faces(this.border.thinWidth, this.border.thicWidth)
+
         this.rotate = options.rotate;
         this.speed = options.speed;
         this.rotation = options.rotation;
         this.direction = options.direction;
-        this.isOuter = ( () => {
-            return this.cubeEl.classList.contains('outer')
-        })();
-        
+        this.isOuter = ( () => this.cubeEl.classList.contains('outer'))();
         this.hidden = false;
         this.render = this.renderCube()
         // this.rotate = this.rotateCube()
 
         // this.cubeEl.addEventListener('click', this.rotateCube)
-
     }
 
     setBorders = (direction) => {
@@ -31,14 +32,12 @@ class Cube {
             face.iteration === 3 ? face.iteration = 0 : face.iteration += 1;
 
             if(this.isOuter){   
-        
                 Object.assign(face.el.style, {
                     borderTopWidth: `${face.directionalBorder[direction].faceBorders.top[face.iteration]}px`,
                     borderRightWidth: `${face.directionalBorder[direction].faceBorders.right[face.iteration]}px`,
                     borderBottomWidth: `${face.directionalBorder[direction].faceBorders.bottom[face.iteration]}px`,
                     borderLeftWidth: `${face.directionalBorder[direction].faceBorders.left[face.iteration]}px`
                 })
-
             }
         
         }
@@ -105,16 +104,16 @@ class Cube {
             
             const transform ={
                 right: () => {
-                    transformation(0,1,0);
-                },
-                left: () => {
                     transformation(0,-1,0);
                 },
+                left: () => {
+                    transformation(0,1,0);
+                },
                 topLeft: () => {
-                    transformation(0,0,1);
+                    transformation(1,0,0);
                 },
                 topRight: () => {
-                    transformation(1,0,0);
+                    transformation(0,0,1);
                 },
                 bottomLeft: () => {
                     transformation(0,0,-1);
@@ -153,8 +152,8 @@ class Cube {
 }
 
 export default class DoubleCube {
-    constructor(element, options = {}){
-        this.wrapperEl = element;
+    constructor(wrapper, options = {}){
+        this.wrapperEl = wrapper;
 
         this.options = {
             // rotateX: options.rotateX || -35.5,//deg
@@ -162,16 +161,20 @@ export default class DoubleCube {
             rotation: options.rotation || 90,
             speed: options.speed || 3000,
             direction: options.direction || 'right'
+            
         }
 
         this.outerCubeEl = createElement('figure','cube outer');
         this.innerCubeEl = createElement('figure','cube inner');
 
 
-        this.outerCube = new Cube(this.outerCubeEl, this.options);
-        this.innerCube = new Cube(this.innerCubeEl, this.options);
+        
+        this.outerCube = new Cube(this.outerCubeEl, this.options, this.wrapperEl);
+        this.innerCube = new Cube(this.innerCubeEl, this.options, this.wrapperEl);
 
         this.outerCube.innerCube = this.innerCube
+        this.outerCube.wrapperEl = this.wrapperEl;
+        this.innerCube.wrapperEl = this.wrapperEl;
 
         this.wrapperEl.appendChild(this.outerCubeEl)
         this.wrapperEl.appendChild(this.innerCubeEl)
@@ -181,9 +184,6 @@ export default class DoubleCube {
     render ()  { 
         this.outerCube.renderCube()
         this.innerCube.renderCube()
-
-        console.log(this.outerCube)
-        console.log(this.innerCube)
     }
 
     onClick (direction) {
@@ -201,6 +201,4 @@ export default class DoubleCube {
         this.outerCube.rotateCube(obj.speed, obj.direction)
         this.innerCube.rotateCube(obj.speed, obj.direction)
     }
-    rotateOuter() { console.log('rotateOuter')}
-    rotateInner() { console.log('rotateOuter')}
 }
