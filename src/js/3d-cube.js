@@ -96,7 +96,6 @@ class Cube {
 
     onClick (outerDirection,innerDirection) {
         this.cubeEl.addEventListener('click',() => {
-            console.log(this)
             this.rotateCube(null,outerDirection,innerDirection)
         })
     }
@@ -105,13 +104,14 @@ class Cube {
 
             const transformation = (rX = 0,rY = 0,rZ = 0) => {
                 const n = (this.isOuter) ? 1 : 2;
+
+                console.log(this.rot)
+
                 let s = parseInt(`${this.rot = this.rot + this.rotation}`);
-                // let sm = parseInt(`${this.rot = this.rot - this.rotation}`);
                 console.log(s,direction)
                 
-                // console.log(s,sm,direction);
                 
-
+                // console.log(s,sm,direction);
                 let rotateX = rX > 0 ? s : rX < 0 ? -s : 0;
                 let rotateY = rY > 0 ? s : rY < 0 ? -s : 0;
                 let rotateZ = rZ > 0 ? s : rZ < 0 ? -s : 0;
@@ -120,6 +120,8 @@ class Cube {
                 return Object.assign(this.cubeEl.style, {
                     transform: `translateX(50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale3d(${1/n},${1/n},${1/n})`
                 })
+
+
 
             }
             
